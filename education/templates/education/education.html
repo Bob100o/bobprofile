@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Education - Bob Chopra Universe{% endblock %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* Dropdown Toggle Styling */
+        .dropdown-toggle {
+            cursor: pointer;
+            font-size: 28px;
+            font-weight: bold;
+            color: #007BFF;
+            padding: 10px;
+            transition: color 0.3s ease;
+            border-bottom: 2px solid #007BFF;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .dropdown-toggle:hover {
+            color: #0056b3;
+        }
+
+        /* Collapsible Section */
+        .certificate-content {
+            display: none; /* Hidden by default */
+            margin-top: 20px;
+        }
+
+        .certificate-item {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .certificate-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dropdown-toggle {
+                font-size: 24px;
+            }
+
+            .certificate-item {
+                padding: 10px;
+            }
+
+            .certificate-item img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Dropdown Toggle -->
+        <h1 class="dropdown-toggle"><i>Advance Level Certifications</i></h1>
+
+        <!-- Certificates Section -->
+        <div id="certificate-content" class="certificate-content">
+            <div class="certificate-item">
+                <h2>StanfordOnline CSX0001 Computer Science 101</h2>
+                <p>CS101 gets at the essential ideas of computers, their powers, and limitations.</p>
+                <img src="{% static 'STANFORD - CS.png' %}" alt="Stanford CS101 Certificate">
+            </div>
+
+            <div class="certificate-item">
+                <h2>HarvardX CS50x CS50's Introduction to Computer Science</h2>
+                <p>Harvard University's introduction to the intellectual enterprises of computer science and the art of programming.</p>
+                <img src="{% static 'HARVARD - CS.png' %}" alt="Harvard CS50x Certificate">
+            </div>
+
+            <div class="certificate-item">
+                <h2>HarvardX CS50P CS50's Introduction to Programming with Python</h2>
+                <p>CS50 is an introduction to the intellectual enterprises of computer science and the art of programming, this course is specifically focused on programming in Python itself.</p>
+                <img src="{% static 'HARVARD - PYTHON.png' %}" alt="Harvard CS50P Certificate">
+            </div>
+
+            <div class="certificate-item">
+                <h2>MITx 6.00.1x Introduction to Computer Science and Programming Using Python</h2>
+                <p>This course offered learning the basics of computer programming in Python and the fundamentals of computation, as well as getting the opportunity to implement your own Python functions.</p>
+                <img src="{% static 'MIT-CS|PYTHON.png' %}" alt="MIT 6.00.1x Certificate">
+            </div>
+
+            <div class="certificate-item">
+                <h2>HarvardX CS50W CS50's Web Programming with Python and JavaScript</h2>
+                <p>This course offered design and creation of web applications. Building our web-design skills by working on a number of projects throughout the course, including an open-ended final project where we had the chance to create a website of our own!</p>
+                <img src="{% static 'upcoming.jpeg' %}" alt="Upcoming Certificate">
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Toggle Visibility -->
+    <script>
+        document.querySelector('.dropdown-toggle').addEventListener('click', function() {
+            var content = document.querySelector('.certificate-content');
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+            } else {
+                content.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+{% endblock %}

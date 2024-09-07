@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Contact - Bob Chopra Universe{% endblock %}
+
+{% block content %}
+    <style>
+        .contact-section {
+            padding: 100px 0;
+            background: #f4f4f9;
+            text-align: center;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* New label styling */
+        .contact-form label {
+            display: block;
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 8px;
+            text-align: left; /* Aligns the labels to the left */
+            font-weight: 600; /* Makes the labels bold for emphasis */
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #3b5998;
+            outline: none;
+        }
+
+        .submit-button {
+            background-color: #3b5998;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #2851a3;
+        }
+
+
+    </style>
+    <section class="contact-section">
+        <div class="container">
+            <h1 class="contact-title"><i>Contact Me</i></h1>
+            <form method="post" class="contact-form" id="contactForm">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="submit-button">Submit</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}
+
+

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bob Chopra Universe{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        /* Global Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #1e1e2f, #1b3b52);
+            color: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1400px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+
+        .navbar .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #f5f5f5;
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+        }
+
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar .nav-links li {
+            position: relative;
+        }
+
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: #f5f5f5;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 10px 15px;
+            transition: color 0.3s;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .navbar .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 0%;
+            height: 3px;
+            background-color: #3b5998;
+            transition: width 0.4s ease;
+            z-index: -1;
+        }
+
+        .navbar .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #3b5998;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50vh;
+            background: url('{% static "images/hero-background.jpg" %}') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            z-index: 1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            z-index: 1;
+            margin-bottom: 40px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .hero .cta-button {
+            font-size: 1.2rem;
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 30px;
+            background: #3b5998;
+            border-radius: 30px;
+            transition: background 0.3s;
+            z-index: 1;
+            animation: slideInUp 1.5s ease-out;
+        }
+
+        .hero .cta-button:hover {
+            background: #2851a3;
+        }
+
+        @keyframes slideInDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Page-specific content */
+        .content {
+            /* padding: 0 0; */
+            text-align: center;
+            animation: fadeInContent 2s ease-in-out;
+        }
+
+        @keyframes fadeInContent {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 0 0;
+            text-align: center;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #f5f5f5;
+            margin-bottom: 0px;
+        }
+
+        .footer .social-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .footer .social-links li {
+            margin: 0 10px;
+        }
+
+        .footer .social-links a {
+            text-decoration: none;
+            color: #f5f5f5;
+            font-size: 1.6rem;
+            transition: color 0.3s;
+        }
+
+        .footer .social-links a:hover {
+            color: #3b5998;
+        }
+
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #3b5998;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            display: none;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 1000;
+        }
+
+        .scroll-to-top:hover {
+            background: #2851a3;
+        }
+
+        .scroll-to-top.show {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                flex-direction: column;
+                gap: 20px;
+                background: rgba(0, 0, 0, 0.85);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                padding: 20px;
+                display: none;
+            }
+
+            .navbar .nav-links.show {
+                display: flex;
+            }
+
+            .navbar .menu-toggle {
+                font-size: 1.8rem;
+                color: #f5f5f5;
+                cursor: pointer;
+                display: block;
+                z-index: 2;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .hero .cta-button {
+                font-size: 1rem;
+            }
+
+            .contact-section {
+                padding: 100px 0;
+                background: #f4f4f9;
+                text-align: center;
+            }
+
+            .contact-title {
+                font-size: 2.5rem;
+                margin-bottom: 30px;
+                color: #333;
+            }
+
+            .contact-form {
+                max-width: 600px;
+                margin: 0 auto;
+                background: #fff;
+                padding: 30px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+                width: 100%;
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 1rem;
+                color: #333;
+            }
+
+            .contact-form input:focus,
+            .contact-form textarea:focus {
+                border-color: #3b5998;
+                outline: none;
+            }
+
+            .submit-button {
+                background-color: #3b5998;
+                color: #fff;
+                padding: 15px 30px;
+                border: none;
+                border-radius: 5px;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .submit-button:hover {
+                background-color: #2851a3;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">Bob Chopra</a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/education/">Education</a></li>
+                <li><a href="/contact/">Contact</a></li>
+                {% if user.is_authenticated %}
+                <p>Welcome, {{ user.username }}!</p>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+                {% else %}
+                <p><a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign Up</a></p>
+                {% endif %}
+            </ul>
+            <!-- <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div> -->
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <!-- <section class="hero">
+        <div class="container">
+            <h1>Welcome to Bob Chopra Universe</h1>
+            <p>Explore the wonders of education and technology.</p>
+            <a href="#content" class="cta-button">Discover More</a>
+        </div>
+    </section> -->
+
+    <!-- Page-specific content -->
+    <div id="content" class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Bob Chopra Universe. All Rights Reserved.</p>
+            <ul class="social-links">
+                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                
+
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar Toggle for Mobile
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+
+        // Scroll to Top Button
+        const scrollToTopButton = document.getElementById('scrollToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopButton.classList.add('show');
+            } else {
+                scrollToTopButton.classList.remove('show');
+            }
+        });
+
+        scrollToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
